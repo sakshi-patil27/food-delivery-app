@@ -600,6 +600,7 @@ Contains: Missing org.springframework.cloud:spring-cloud-starter-gateway-mvc:jar
 
 !ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 12:53:43.786
 !MESSAGE Classpath changed for project: eureka-server
+<<<<<<< HEAD
 
 !ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 12:55:38.016
 !MESSAGE Classpath changed for project: api-gateway
@@ -612,3 +613,72 @@ Contains: Missing org.springframework.cloud:spring-cloud-starter-gateway-mvc:jar
 
 !ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 12:55:41.577
 !MESSAGE Boot project REMOVED: eureka-server
+=======
+>>>>>>> branch 'main' of https://github.com/sakshi-patil27/food-delivery-app.git
+!SESSION 2025-03-27 14:32:37.725 -----------------------------------------------
+eclipse.buildId=4.25.0.202409101855
+java.version=21.0.4
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product org.springframework.boot.ide.branding.sts4
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.springframework.boot.ide.branding.sts4
+
+!ENTRY ch.qos.logback.classic 1 0 2025-03-27 14:32:41.449
+!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
+
+!ENTRY ch.qos.logback.classic 1 0 2025-03-27 14:32:52.154
+!MESSAGE Logback config file: /home/spatil@microproindia.com/Documents/FoodDeliveryApp/.metadata/.plugins/org.eclipse.m2e.logback/logback.2.6.1.20240411-1122.xml
+
+!ENTRY org.eclipse.ui 2 0 2025-03-27 14:32:52.849
+!MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
+!SUBENTRY 1 org.eclipse.ui 2 0 2025-03-27 14:32:52.849
+!MESSAGE Commands should really have a category: plug-in='org.springframework.tooling.boot.ls', id='spring.initializr.addStarters', categoryId='org.eclipse.lsp4e.commandCategory'
+
+!ENTRY org.eclipse.ui 2 0 2025-03-27 14:32:53.381
+!MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
+!SUBENTRY 1 org.eclipse.ui 2 0 2025-03-27 14:32:53.382
+!MESSAGE Commands should really have a category: plug-in='org.springframework.tooling.boot.ls', id='spring.initializr.addStarters', categoryId='org.eclipse.lsp4e.commandCategory'
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 14:32:57.352
+!MESSAGE Boot project ADDED: delivery-service
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 14:32:57.353
+!MESSAGE Starting Boot LS...
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 14:32:57.385
+!MESSAGE Started Boot LS process
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 14:32:57.397
+!MESSAGE Boot project ADDED: notification-service
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 14:32:57.404
+!MESSAGE Boot project ADDED: order-service
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2025-03-27 14:32:57.412
+!MESSAGE Command list starting LS: org.springframework.tooling.boot.ls
+START:
+/opt/sts/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.linux.x86_64_21.0.4.v20240802-1551/jre/bin/java
+-Dsts.lsp.client=eclipse
+-Xmx1024m
+-XX:TieredStopAtLevel=1
+-Xlog:jni+resolve=off
+-XX:ErrorFile=/home/spatil@microproindia.com/Documents/FoodDeliveryApp/.metadata/.plugins/org.springframework.tooling.boot.ls/fatal-error-spring-boot_1743066177411
+-Dlanguageserver.hover-timeout=225
+-jar
+/opt/sts/plugins/org.springframework.tooling.boot.ls_1.57.0.202409101848/servers/spring-boot-language-server/spring-boot-language-server-1.57.0-SNAPSHOT-exec.jar
+END
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 14:32:57.412
+!MESSAGE DelegatingStreamConnectionProvider - Starting Boot LS
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 14:32:57.413
+!MESSAGE Boot project ADDED: payment-service
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2025-03-27 14:32:57.416
+!MESSAGE Started org.springframework.tooling.boot.ls LS process 4611
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 14:32:57.420
+!MESSAGE Boot project ADDED: restaurant-service
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 14:32:57.426
+!MESSAGE Boot project ADDED: user-service
