@@ -600,3 +600,15 @@ Contains: Missing org.springframework.cloud:spring-cloud-starter-gateway-mvc:jar
 
 !ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 12:53:43.786
 !MESSAGE Classpath changed for project: eureka-server
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 12:55:38.016
+!MESSAGE Classpath changed for project: api-gateway
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 12:55:38.017
+!MESSAGE Boot project REMOVED: api-gateway
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 12:55:41.576
+!MESSAGE Classpath changed for project: eureka-server
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 12:55:41.577
+!MESSAGE Boot project REMOVED: eureka-server
