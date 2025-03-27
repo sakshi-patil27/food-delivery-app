@@ -26,9 +26,7 @@ INDEX VERSION 1.134+/home/spatil@microproindia.com/Documents/FoodDeliveryApp/.me
 4042856156.index
 3516389624.index
 49603843.index
-3364030502.index
 2525811950.index
-3021755936.index
 653738273.index
 90404343.index
 3344269508.index
@@ -49,7 +47,6 @@ INDEX VERSION 1.134+/home/spatil@microproindia.com/Documents/FoodDeliveryApp/.me
 290795721.index
 3282382561.index
 246033913.index
-3165476383.index
 1566431366.index
 285590096.index
 1901338256.index
@@ -59,7 +56,6 @@ INDEX VERSION 1.134+/home/spatil@microproindia.com/Documents/FoodDeliveryApp/.me
 2057537652.index
 1330274176.index
 3538145382.index
-2415555192.index
 2562865473.index
 1472984828.index
 3921601264.index
