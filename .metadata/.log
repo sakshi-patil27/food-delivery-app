@@ -363,3 +363,12 @@ END
 
 !ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 12:26:14.987
 !MESSAGE Boot project ADDED: user-service
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 12:49:18.939
+!MESSAGE Classpath changed for project: order-service
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 12:49:18.939
+!MESSAGE Boot project ADDED: order-service
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-03-27 12:49:19.875
+!MESSAGE Classpath changed for project: order-service
