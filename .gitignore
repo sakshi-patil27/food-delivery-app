@@ -1,1 +1,24 @@
 /.metadata/
+
+# Ignore Eclipse files
+.metadata/
+*.log
+
+# Ignore MySQL data files
+mysql_data/
+
+# Ignore target (Maven builds)
+target/
+
+# Ignore build (Gradle builds)
+build/
+
+# Ignore IDE files
+*.iml
+.idea/
+.vscode/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+

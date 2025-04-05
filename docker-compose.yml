@@ -19,6 +19,26 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+   
+
+  mysql-restaurant-order:
+    image: mysql:8.0
+    container_name: mysql-restaurant-order
+    environment:
+      MYSQL_ROOT_PASSWORD: Sakshi
+      MYSQL_DATABASE: restaurant_order_db
+      MYSQL_USER: Sakshi
+      MYSQL_PASSWORD: Sakshi
+    ports:
+      - "3308:3306"
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
 
   # === INFRASTRUCTURE ===
   eureka-server:
@@ -37,6 +57,19 @@ services:
       - "8081:8081"
     depends_on:
       mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - backend
+    
+  restaurant-service:
+    build: ./restaurant-service
+    container_name: restaurant-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      mysql-restaurant-order:
         condition: service_healthy
       eureka-server:
         condition: service_started
