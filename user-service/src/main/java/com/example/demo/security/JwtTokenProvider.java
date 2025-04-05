@@ -21,7 +21,7 @@ public class JwtTokenProvider {
 
     private final String jwtSecret = "hGRVQ4dfhOzh4QyP3FeYQ8v9JX83M7K8hG6ZyxUeVxQ=\n"
     		+ "";
-    private final long jwtExpirationMs = 86400000; // 1 day
+    private final long jwtExpirationMs = 60000; // 1 day
 
     public String generateToken(Authentication authentication) {
         return Jwts.builder()

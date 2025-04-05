@@ -36,7 +36,7 @@ public class SecurityConfig {
 	      http
 	          .csrf().disable()
 	          .authorizeHttpRequests(auth -> auth
-	              .requestMatchers("/api/auth/register", "/api/auth/login").permitAll() // Allow registration and login
+	              .requestMatchers("/auth/register", "/auth/login","/auth/validate").permitAll() // Allow registration and login
 //	              .requestMatchers("/api/auth/validate").authenticated() // Require authentication for validation
 	              .anyRequest().authenticated() // All other endpoints require authentication
 	          )

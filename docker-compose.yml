@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # === DATABASE ===
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Sakshi  # Fixed typo here
+      MYSQL_DATABASE: user_db
+      MYSQL_USER: Sakshi
+      MYSQL_PASSWORD: Sakshi
+    ports:
+      - "3307:3306"
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # === INFRASTRUCTURE ===
+  eureka-server:
+    build: ./eureka-server
+    container_name: eureka-server
+    ports:
+      - "8087:8087"
+    networks:
+      - backend
+
+  # === MICROSERVICES ===
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
