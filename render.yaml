@@ -4,6 +4,5 @@ services:
     env: docker
     plan: free
     region: oregon
-    dockerComposeFilePath: ./docker-compose.yml
-
+    dockerComposeFilePath: docker-compose.yml
 

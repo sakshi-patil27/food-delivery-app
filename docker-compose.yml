@@ -46,18 +46,7 @@ services:
     networks:
       - backend
     
-  restaurant-service:
-    build: ./restaurant-service
-    container_name: restaurant-service
-    ports:
-      - "8082:8082"
-    depends_on:
-      mysql-restaurant-order:
-        condition: service_healthy
-      eureka-server:
-        condition: service_started
-    networks:
-      - backend
+
 
 networks:
   backend:
