@@ -1,8 +1,9 @@
 services:
-  - type: web
+  - type: docker
     name: food-delivery-app
     env: docker
     plan: free
     region: oregon
     dockerComposeFilePath: docker-compose.yml
+
 
