@@ -1,54 +1,56 @@
 version: '3.8'
-
 services:
-  # === DATABASE ===
-  mysql:
+  mysql-user:
     image: mysql:8.0
-    container_name: mysql
+    container_name: mysql-user
     environment:
-      MYSQL_ROOT_PASSWORD: Sakshi  # Fixed typo here
+      MYSQL_ROOT_PASSWORD: Sakshi
       MYSQL_DATABASE: user_db
       MYSQL_USER: Sakshi
       MYSQL_PASSWORD: Sakshi
     ports:
+      - "3306:3306"
+    volumes:
+      - mysql-user-data:/var/lib/mysql
+    networks:
+      - foodapp
+
+  mysql-restaurant-order:
+    image: mysql:8.0
+    container_name: mysql-restaurant-order
+    environment:
+      MYSQL_ROOT_PASSWORD: Sakshi
+      MYSQL_DATABASE: restaurant_order_db
+      MYSQL_USER: Sakshi
+      MYSQL_PASSWORD: Sakshi
+    ports:
       - "3307:3306"
+    volumes:
+      - mysql-restaurant-order-data:/var/lib/mysql
     networks:
-      - backend
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-   
+      - foodapp
 
-
-
-  # === INFRASTRUCTURE ===
-  eureka-server:
-    build: ./eureka-server
-    container_name: eureka-server
+  mysql-payment-delivery:
+    image: mysql:8.0
+    container_name: mysql-payment-delivery
+    environment:
+      MYSQL_ROOT_PASSWORD: Sakshi
+      MYSQL_DATABASE: payment_delivery_db
+      MYSQL_USER: Sakshi
+      MYSQL_PASSWORD: Sakshi
     ports:
-      - "8087:8087"
+      - "3308:3306"
+    volumes:
+      - mysql-payment-delivery-data:/var/lib/mysql
     networks:
-      - backend
+      - foodapp
 
-  # === MICROSERVICES ===
-  user-service:
-    build: ./user-service
-    container_name: user-service
-    ports:
-      - "8081:8081"
-    depends_on:
-      mysql:
-        condition: service_healthy
-      eureka-server:
-        condition: service_started
-    networks:
-      - backend
-    
-
+volumes:
+  mysql-user-data:
+  mysql-restaurant-order-data:
+  mysql-payment-delivery-data:
 
 networks:
-  backend:
+  foodapp:
     driver: bridge
 
