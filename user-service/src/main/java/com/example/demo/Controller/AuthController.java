@@ -41,22 +41,39 @@ public class AuthController {
 	private UserService userService;
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
-    @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> login(@RequestBody AuthRequest request) {
-        try {
-            String token = authService.login(request.getEmail(), request.getPassword());
+	
+	
+	
+	@PostMapping("/login")
+	public ResponseEntity<Map<String, Object>> login(@RequestBody AuthRequest request) {
+	    try {
+	        // Authenticate and generate token
+	        String token = authService.login(request.getEmail(), request.getPassword());
 
-            Map<String, Object> response = new HashMap<>();
-            response.put("token", token);
+	        // Fetch user details
+	        user_info user = userService.getUserByEmail(request.getEmail());
+	        if (user == null) {
+	            throw new RuntimeException("User not found with email: " + request.getEmail());
+	        }
 
-            return ResponseEntity.ok(response);
+	        // Construct user info map
+	        Map<String, Object> userInfo = new HashMap<>();
+	        userInfo.put("name", user.getName());
+	        userInfo.put("email", user.getEmail());
 
-        } catch (Exception e) {
-            Map<String, Object> errorResponse = new HashMap<>();
-            errorResponse.put("error", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
-        }
-    }
+	        // Construct final response map
+	        Map<String, Object> response = new HashMap<>();
+	        response.put("token", token);
+	        response.put("user", userInfo);
+
+	        return ResponseEntity.ok(response);
+
+	    } catch (Exception e) {
+	        Map<String, Object> errorResponse = new HashMap<>();
+	        errorResponse.put("error", e.getMessage());
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+	    }
+	}
 
 	@PostMapping("/register")
 	public ResponseEntity<String> register(@RequestBody RegisterRequest request) {

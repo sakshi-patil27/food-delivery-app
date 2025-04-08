@@ -48,5 +48,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
+	public user_info getUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		 Optional<user_info> user = userRepository.findByEmail(email);
+		return user.get();
+	}
+
     
 }
