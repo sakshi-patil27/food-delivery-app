@@ -6,11 +6,16 @@ import com.example.demo.entity.Role;
 import com.example.demo.entity.user_info;
 import com.example.demo.security.AuthService;
 import com.example.demo.security.JwtTokenProvider;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import aj.org.objectweb.asm.TypeReference;
+
 import com.example.demo.Repository.RoleRepository;
 import com.example.demo.Repository.UserRepository;
 import com.example.demo.Service.UserService;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -37,15 +42,22 @@ public class AuthController {
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
     @PostMapping("/login")
-    public String login1(@RequestBody AuthRequest reuqest) {
-    	try {
-    		return authService.login(reuqest.getEmail(),reuqest.getPassword());
-    	          
-    	} catch (Exception e) {
-			return "Error:: " + e.getMessage();
-		}
-     
+    public ResponseEntity<Map<String, Object>> login(@RequestBody AuthRequest request) {
+        try {
+            String token = authService.login(request.getEmail(), request.getPassword());
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("token", token);
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            Map<String, Object> errorResponse = new HashMap<>();
+            errorResponse.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
     }
+
 	@PostMapping("/register")
 	public String register(@RequestBody RegisterRequest request) { 
 		try {
