@@ -53,6 +53,25 @@ public class UserService {
 		 Optional<user_info> user = userRepository.findByEmail(email);
 		return user.get();
 	}
+	
+	
+	public user_info updateUser(user_info user) {
+	    user_info existingUser = userRepository.findById(user.getId())
+	            .orElseThrow(() -> new RuntimeException("User not found with ID: " + user.getId()));
+
+	    existingUser.setName(user.getName());
+	    existingUser.setEmail(user.getEmail());
+
+	    // update password if not null/blank
+	    if (user.getPassword() != null && !user.getPassword().isBlank()) {
+	        existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+	    }
+
+	    // directly set roles from user
+	    existingUser.setRoles(user.getRoles());
+
+	    return userRepository.save(existingUser);
+	}
 
     
 }

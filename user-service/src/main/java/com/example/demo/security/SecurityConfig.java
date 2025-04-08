@@ -43,7 +43,8 @@ public class SecurityConfig {
 	          .and()
 	          .authorizeHttpRequests(auth -> auth
 	              .requestMatchers("/auth/register", "/auth/login").permitAll()
-	              .anyRequest().authenticated()
+	              .requestMatchers("/auth/**").authenticated()
+	              .anyRequest().permitAll()
 	          )
 	          .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 	          .exceptionHandling(ex -> ex.authenticationEntryPoint((request, response, authException) -> {
@@ -76,3 +77,6 @@ public class SecurityConfig {
 	        return source;
 	    }
 }
+
+
+
