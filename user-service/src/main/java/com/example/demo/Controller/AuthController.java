@@ -59,35 +59,28 @@ public class AuthController {
     }
 
 	@PostMapping("/register")
-	public String register(@RequestBody RegisterRequest request) { 
-		try {
-			user_info user = new user_info();
-			user.setName(request.getName());
-			user.setEmail(request.getEmail());
-			user.setPassword(request.getPassword());
+	public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
+	    try {
+	        user_info user = new user_info();
+	        user.setName(request.getName());
+	        user.setEmail(request.getEmail());
+	        user.setPassword(request.getPassword());
 
-			userService.registerUser(user, request.getRoles());
-			return "User registered successfully!";
-		} catch (Exception e) {
-			return "Error: " + e.getMessage();
-		}
+	        userService.registerUser(user, request.getRoles());
+
+	        return ResponseEntity.ok("User registered successfully!");
+
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                             .body("Error: " + e.getMessage());
+	    }
 	}
 
 	 @GetMapping("/validate")
-	    public ResponseEntity<?> validateToken(@RequestHeader("Authorization") String token) {
+	    public ResponseEntity<?> validateToken() {
 	        try {
-	            // Extract JWT token from the "Bearer token"
-	            if (token.startsWith("Bearer ")) {
-	                token = token.substring(7);
-	            }
-
-	            boolean isValid = jwtTokenProvider.validateToken(token);
-	            if (isValid) {
-	                String userEmail = jwtTokenProvider.getUsernameFromToken(token);
-	                return ResponseEntity.ok("Token is valid for user: " + userEmail);
-	            } else {
-	                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
-	            }
+	        	
+	        	return ResponseEntity.ok("Token is valid for user: "); 
 	        } catch (Exception e) {
 	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
 	        }

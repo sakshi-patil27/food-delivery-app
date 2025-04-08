@@ -9,6 +9,7 @@ import com.example.demo.Repository.RoleRepository;
 import com.example.demo.entity.user_info;
 import com.example.demo.entity.Role;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -28,17 +29,24 @@ public class UserService {
     }
 
     public user_info registerUser(user_info user, Set<String> roleNames) {
-        Set<Role> userRoles = new HashSet<>();
+        Optional<user_info> existingUser = userRepository.findByEmail(user.getEmail());
 
+        if (existingUser.isPresent()) {
+            throw new RuntimeException("User already exists with email: " + user.getEmail());
+        }
+
+        Set<Role> userRoles = new HashSet<>();
         for (String roleName : roleNames) {
             Role role = roleRepository.findByName(roleName)
                     .orElseThrow(() -> new RuntimeException("Role not found: " + roleName));
             userRoles.add(role);
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword())); 
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(userRoles);
-        return userRepository.save(user);  
+
+        return userRepository.save(user);
     }
-    
+
     
 }
