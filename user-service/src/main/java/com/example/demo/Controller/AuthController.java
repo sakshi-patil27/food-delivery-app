@@ -76,23 +76,24 @@ public class AuthController {
 	    }
 	}
 
+	
 	@PostMapping("/register")
-	public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
+	public ResponseEntity<String> registerOrUpdate(@RequestBody user_info user) {
 	    try {
-	        user_info user = new user_info();
-	        user.setName(request.getName());
-	        user.setEmail(request.getEmail());
-	        user.setPassword(request.getPassword());
-
-	        userService.registerUser(user, request.getRoles());
-
-	        return ResponseEntity.ok("User registered successfully!");
-
+	        if (user.getId() != null) {
+	            userService.updateUser(user);  // update
+	            return ResponseEntity.ok("User updated successfully!");
+	        } else {
+	            userService.registerUser(user);  // register
+	            return ResponseEntity.ok("User registered successfully!");
+	        }
 	    } catch (Exception e) {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 	                             .body("Error: " + e.getMessage());
 	    }
 	}
+
+
 
 	 @GetMapping("/validate")
 	    public ResponseEntity<?> validateToken() {

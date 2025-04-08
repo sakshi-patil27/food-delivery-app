@@ -27,26 +27,20 @@ public class UserService {
         this.userRepository = userRepository;
         this.passwordEncoder = new BCryptPasswordEncoder(); // Ensure password encoding
     }
-
-    public user_info registerUser(user_info user, Set<String> roleNames) {
+    
+    public user_info registerUser(user_info user) {
         Optional<user_info> existingUser = userRepository.findByEmail(user.getEmail());
 
         if (existingUser.isPresent()) {
             throw new RuntimeException("User already exists with email: " + user.getEmail());
         }
 
-        Set<Role> userRoles = new HashSet<>();
-        for (String roleName : roleNames) {
-            Role role = roleRepository.findByName(roleName)
-                    .orElseThrow(() -> new RuntimeException("Role not found: " + roleName));
-            userRoles.add(role);
-        }
-
+        // encode password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(userRoles);
 
         return userRepository.save(user);
     }
+
 
 	public user_info getUserByEmail(String email) {
 		// TODO Auto-generated method stub
@@ -72,6 +66,7 @@ public class UserService {
 
 	    return userRepository.save(existingUser);
 	}
+
 
     
 }
