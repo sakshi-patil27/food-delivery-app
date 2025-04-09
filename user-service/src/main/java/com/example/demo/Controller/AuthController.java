@@ -78,18 +78,13 @@ public class AuthController {
 
 	
 	@PostMapping("/register")
-	public ResponseEntity<String> registerOrUpdate(@RequestBody user_info user) {
+	public ResponseEntity<String> registerOrUpdateUser(@RequestBody user_info user) {
 	    try {
-	        if (user.getId() != null) {
-	            userService.updateUser(user);  // update
-	            return ResponseEntity.ok("User updated successfully!");
-	        } else {
-	            userService.registerUser(user);  // register
-	            return ResponseEntity.ok("User registered successfully!");
-	        }
+	        String action = userService.registerOrUpdateUser(user);
+	        return ResponseEntity.ok("User " + action + " successfully!");
 	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                             .body("Error: " + e.getMessage());
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+	                .body("Error: " + e.getMessage());
 	    }
 	}
 

@@ -27,20 +27,7 @@ public class UserService {
         this.userRepository = userRepository;
         this.passwordEncoder = new BCryptPasswordEncoder(); // Ensure password encoding
     }
-    
-    public user_info registerUser(user_info user) {
-        Optional<user_info> existingUser = userRepository.findByEmail(user.getEmail());
-
-        if (existingUser.isPresent()) {
-            throw new RuntimeException("User already exists with email: " + user.getEmail());
-        }
-
-        // encode password
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        return userRepository.save(user);
-    }
-
+   
 
 	public user_info getUserByEmail(String email) {
 		// TODO Auto-generated method stub
@@ -48,23 +35,48 @@ public class UserService {
 		return user.get();
 	}
 	
-	
-	public user_info updateUser(user_info user) {
-	    user_info existingUser = userRepository.findById(user.getId())
-	            .orElseThrow(() -> new RuntimeException("User not found with ID: " + user.getId()));
+	public String registerOrUpdateUser(user_info user) {
+	    Set<Role> validRoles = new HashSet<>();
 
-	    existingUser.setName(user.getName());
-	    existingUser.setEmail(user.getEmail());
-
-	    // update password if not null/blank
-	    if (user.getPassword() != null && !user.getPassword().isBlank()) {
-	        existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+	    if (user.getRoles() != null) {
+	        for (Role r : user.getRoles()) {
+	            Role role = roleRepository.findByName(r.getName())
+	                    .orElseThrow(() -> new RuntimeException("Role not found: " + r.getName()));
+	            validRoles.add(role);
+	        }
 	    }
 
-	    // directly set roles from user
-	    existingUser.setRoles(user.getRoles());
+	    if (user.getId() != null) {
+	        // 👉 Update flow
+	        Optional<user_info> optionalUser = userRepository.findById(user.getId());
+	        if (optionalUser.isPresent()) {
+	            user_info existingUser = optionalUser.get();
+	            existingUser.setName(user.getName());
+	            existingUser.setEmail(user.getEmail());
 
-	    return userRepository.save(existingUser);
+	            if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+	                existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+	            }
+
+	            existingUser.setRoles(validRoles);
+	            userRepository.save(existingUser);
+	            return "updated";
+	        } else {
+	            throw new RuntimeException("User not found with ID: " + user.getId());
+	        }
+	    }
+
+	    // 👉 Register flow
+	    Optional<user_info> existing = userRepository.findByEmail(user.getEmail());
+	    if (existing.isPresent()) {
+	        throw new RuntimeException("User already exists with email: " + user.getEmail());
+	    }
+
+	    user.setPassword(passwordEncoder.encode(user.getPassword()));
+	    user.setRoles(validRoles);
+	    userRepository.save(user);
+
+	    return "registered";
 	}
 
 
