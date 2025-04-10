@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Service.UserService;
 import com.example.demo.entity.AuthRequest;
+import com.example.demo.entity.EmailRequest;
 import com.example.demo.entity.user_info;
 import com.example.demo.security.AuthService;
 import com.example.demo.security.JwtTokenProvider;
@@ -112,17 +113,15 @@ public class AuthController {
 	   
 	   
 	   @PreAuthorize("hasRole('ADMIN')")
-	    @GetMapping("/getUserByEmail")
-	    public ResponseEntity<?> getUsersByEmail(@RequestBody String email) {
-		   try {
-			   user_info user=userService.getUserByEmail(email);
-			   return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-		                .body(user);
-			 
-		   } catch(Exception e) {
-			   return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-		                .body("Error: " + e.getMessage());
-		   }
-	        
+	   @PostMapping("/getUserByEmail")
+	   public ResponseEntity<?> getUsersByEmail(@RequestBody EmailRequest request) {
+	       try {
+	           user_info user = userService.getUserByEmail(request.getEmail());
+	           return ResponseEntity.ok(user);
+	       } catch (Exception e) {
+	           return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+	                                .body("Error: " + e.getMessage());
+	       }
 	   }
+
 	}
