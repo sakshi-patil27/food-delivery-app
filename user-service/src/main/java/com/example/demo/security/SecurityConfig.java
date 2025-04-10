@@ -45,7 +45,7 @@ public class SecurityConfig {
 	              // Permitting OPTIONS requests for all endpoints
 	              .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 	              // These endpoints are open without authentication
-	              .requestMatchers("/auth/register", "/auth/login").permitAll()
+	              .requestMatchers("/auth/register", "/auth/login","/auth/send-otp","/auth/verify-otp").permitAll()
 	              .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
 	              // All other requests require authentication
 	              .anyRequest().authenticated()
@@ -76,6 +76,7 @@ public class SecurityConfig {
 	        config.setAllowedOriginPatterns(List.of("http://localhost:5173", "https://grabobite.netlify.app"));
 	        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 	        config.setAllowedHeaders(List.of("*"));
+	        config.setAllowedOriginPatterns(List.of("*")); // or include localhost if not already
 	        config.setAllowCredentials(true);
 
 	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
