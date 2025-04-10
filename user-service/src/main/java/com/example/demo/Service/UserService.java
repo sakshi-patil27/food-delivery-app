@@ -9,6 +9,7 @@ import com.example.demo.Repository.RoleRepository;
 import com.example.demo.entity.user_info;
 import com.example.demo.entity.Role;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -31,8 +32,9 @@ public class UserService {
 
 	public user_info getUserByEmail(String email) {
 		// TODO Auto-generated method stub
-		 Optional<user_info> user = userRepository.findByEmail(email);
-		return user.get();
+		    return userRepository.findByEmail(email)
+		            .orElseThrow(() -> new RuntimeException("User not found for email: " + email));
+	
 	}
 	
 	public String registerOrUpdateUser(user_info user) {
@@ -77,6 +79,12 @@ public class UserService {
 	    userRepository.save(user);
 
 	    return "registered";
+	}
+
+
+	public List<user_info> getuser() {
+		// TODO Auto-generated method stub
+		return userRepository.findAll();
 	}
 
 

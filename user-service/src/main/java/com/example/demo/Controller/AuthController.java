@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,5 +94,35 @@ public class AuthController {
 	    public ResponseEntity<String> placeOrder() {
 	        return ResponseEntity.ok("Order placed successfully!");
 	    }
-
+	   
+	   @PreAuthorize("hasRole('ADMIN')")
+	    @GetMapping("/getUsers")
+	    public ResponseEntity<?> getUsers() {
+		   try {
+			   List<user_info> list=userService.getuser();
+			   return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+		                .body(list);
+			 
+		   } catch(Exception e) {
+			   return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+		                .body("Error: " + e.getMessage());
+		   }
+	        
+	   }
+	   
+	   
+	   @PreAuthorize("hasRole('ADMIN')")
+	    @GetMapping("/getUserByEmail")
+	    public ResponseEntity<?> getUsersByEmail(@RequestBody String email) {
+		   try {
+			   user_info user=userService.getUserByEmail(email);
+			   return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+		                .body(user);
+			 
+		   } catch(Exception e) {
+			   return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+		                .body("Error: " + e.getMessage());
+		   }
+	        
+	   }
 	}
