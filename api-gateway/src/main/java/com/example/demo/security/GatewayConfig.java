@@ -19,7 +19,7 @@ public class GatewayConfig {
 
             // Public Auth Routes (No Security Filter)
             .route("user-service", r -> r.path("/auth/**")
-                .uri("http://localhost:8081"))
+                .uri("https://user-service-6eg1.onrender.com"))
 
             // Secure Restaurant Service
             .route("restaurant-service", r -> r.path("/restaurant/**")
