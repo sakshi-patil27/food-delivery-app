@@ -22,9 +22,9 @@ public class GatewayConfig {
                 .uri("https://user-service-6eg1.onrender.com"))
 
             // Secure Restaurant Service
-            .route("restaurant-service", r -> r.path("/restaurant/**")
+            .route("restaurant-service", r -> r.path("/api/restaurant/**")
                 .filters(f -> f.filter(jwtAuthenticationFilter)) // 👈 Attach filter
-                .uri("http://localhost:8082"))
+                .uri("https://restaurant-service-x7ei.onrender.com"))
 
             // Secure Order Service
             .route("order-service", r -> r.path("/order/**")

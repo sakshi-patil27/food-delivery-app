@@ -27,9 +27,9 @@ spring:
             - Path=/auth/**
 
         - id: restaurant-service
-          uri: http://localhost:8082
+          uri: https://restaurant-service-x7ei.onrender.com
           predicates:
-            - Path=/restaurants/**
+            - Path=/api/restaurants/**
             
 #        - id: order-service
 #          uri: http://localhost:8083
